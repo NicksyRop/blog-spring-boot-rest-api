@@ -1,6 +1,7 @@
 package com.api.blog.service.impl;
 
 import com.api.blog.entity.Post;
+import com.api.blog.exception.ResourceNotFoundException;
 import com.api.blog.payload.PostDto;
 import com.api.blog.respository.PostRepository;
 import com.api.blog.service.PostService;
@@ -37,6 +38,14 @@ public class PostServiceImpl implements PostService {
        //fetch list of posts then convert it to a list of DTO by using map then call the mapToDto method then collect the result
        return posts.stream().map(post -> mapToDto(post)).collect(Collectors.toList());
     }
+
+    @Override
+    public PostDto getPostById(long id) {
+      Post post = postRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Post","id",id));
+
+      return mapToDto(post);
+    }
+
     // method to convert Entity to Dto
     private PostDto mapToDto(Post post){
 

@@ -4,15 +4,15 @@ package com.api.blog.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.FOUND)
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException{
 
 
     private String resourceName;
     private  String fieldName;
-    private String fieldVale;
+    private long fieldVale;
 
-    public ResourceNotFoundException(String resourceName, String fieldName, String fieldVale) {
+    public ResourceNotFoundException(String resourceName, String fieldName, long fieldVale) {
 
         super(String.format("%s not found with %s : '%s'",resourceName,fieldName,fieldVale));
         this.resourceName = resourceName;
@@ -28,7 +28,7 @@ public class ResourceNotFoundException extends RuntimeException{
         return fieldName;
     }
 
-    public String getFieldVale() {
+    public long getFieldVale() {
         return fieldVale;
     }
 }
